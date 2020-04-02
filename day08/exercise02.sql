@@ -58,7 +58,7 @@ insert into course(cname,teacher_id) values('生物',1),('体育',1),('物理',2
 insert into score(student_id,course_id,number) values(1,1,60),(1,2,59),(2,2,100),(3,2,78),(4,3,66);
 
 1. 查询每位老师教授的课程数量
-select teacher.tname,count(*)from course inner join teacher on course.teacher_id = teacher.tid group by teacher.tname;
+select teacher.tname,count(course.cname)from teacher left join course on course.teacher_id = teacher.tid group by teacher.tname;
 
 2. 查询学生的信息及学生所在班级信息
 

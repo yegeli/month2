@@ -105,8 +105,31 @@ insert into score(student_id,course_id,number) values(1,1,60),(1,2,59),(2,2,100)
          画出E-R图然后建立表模型
 
       2. 函数 传入两个学生的ID 得到这两个学生的成绩之和
-         存储过程  传入一个学生的姓名 通过外部的用户变量得到这个学生的成绩
+delimiter $$
+create function get_sum(uid1 int,uid2 int)
+returns float
+begin
+declare a float
+declare b float
+select score from cls where id = uid1 into a;
+select score from cls where id = uid2 into b;
+return a+b;
+end $$
+delimiter ;
+select get_sum();
 
+
+
+         存储过程  传入一个学生的姓名 通过外部的用户变量得到这个学生的成绩
+delimiter $$
+create procedure get_score(in uname varchar(30),out s float)
+begin
+set s =(select score form cls where name = uname);
+end $$
+delimiter ;
+set @s=0;
+call get_score('yege',@s);
+select @s;
       3. 提高练习
 
 
